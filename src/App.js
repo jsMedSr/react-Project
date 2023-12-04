@@ -4,6 +4,7 @@ import './App.css';
 import Card from './components/Card/Card';
 import Filter from './components/Filter/Filter';
 import Modal from './components/Modal/Modal';
+import Form from './components/Layout/Form';
 
 
 const App = () => {
@@ -89,7 +90,6 @@ const handelBrothers = () =>{
   return (
    
        <div className="App ">
-        <Modal/>
         <button style={{marginTop : "25px"}} onClick={ ()=>{  setShowBrothers(!showBrothers) }}> 
         {showBrothers ? "hide brothers":"show brothers"}
         </button>
@@ -105,6 +105,14 @@ const handelBrothers = () =>{
         <Card namesList = {handelBrothers()}  deleteFunc={deleteHandler} />
 
         </div>
+
+      <Form>
+        <Form.Controller>
+          <label htmlFor='name'>  Name  </label>
+     
+          <input type='name'  placeholder='enter name' />
+        </Form.Controller>
+      </Form>
       
 
     </div>
