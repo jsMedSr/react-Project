@@ -1,7 +1,7 @@
 import style from './Form.module.css'
 
 const Form = (props) =>{
-    return <><form>{props.children}</form></>
+    return <><form onSubmit={props.onSubmit} className={style.formStyle}>{props.children}</form></>
 }
 
 const Controller = (props)=>{

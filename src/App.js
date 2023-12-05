@@ -5,6 +5,7 @@ import Card from './components/Card/Card';
 import Filter from './components/Filter/Filter';
 import Modal from './components/Modal/Modal';
 import Form from './components/Layout/Form';
+import Button from './components/Layout/Button/Button';
 
 
 const App = () => {
@@ -13,12 +14,20 @@ const App = () => {
 
   const [showBrothers,setShowBrothers] = useState(true);
   const [filterhdl,setFilterhdl] = useState("")
+  const [formData,setFormData] = useState(
+    {id : 6,
+    name : "",
+    age : 10,
+    adress : "",
+    phone : "",
+    type : "br"
+    
+  })
 
-
-  const [value,setValue]= useState(
+  var [value,setValue]= useState(
   [{
   id : 0,
-    name : "aissam",
+  name : "aissam",
   age : 26,
   adress : "temara",
   phone : "02655658",
@@ -60,8 +69,7 @@ const App = () => {
   adress : "bouskoura",
   phone : "02655658",
   type : "fr"
-  },
-  
+  }
 ]);
 
 
@@ -73,7 +81,23 @@ const deleteHandler = (e,clickedIdx)=>{
 const inputhandler = () =>{
   handelBrothers()
 }
+const onChangeHandeler = (e) =>{
+  const key = e.target.id;
+  const value = e.target.value;
+  setFormData((prevState)=>({  ...prevState, [key] : value   }))
+  
+console.log(e.target.value)
+console.log(formData)
 
+}
+const onSubmitHandler = (e) =>{
+  e.preventDefault();
+console.log(formData)
+setValue( value.push(formData)  )
+
+   
+  
+}
 const filterNames = (name)=>{
   setFilterhdl(name)
 
@@ -90,10 +114,9 @@ const handelBrothers = () =>{
   return (
    
        <div className="App ">
-        <button style={{marginTop : "25px"}} onClick={ ()=>{  setShowBrothers(!showBrothers) }}> 
+        <Button  fct={ ()=>{  setShowBrothers(!showBrothers) }}> 
         {showBrothers ? "hide brothers":"show brothers"}
-        </button>
-
+        </Button>
 
       <Filter filtration={filterNames} />
 
@@ -106,12 +129,31 @@ const handelBrothers = () =>{
 
         </div>
 
-      <Form>
-        <Form.Controller>
+      <Form onSubmit={onSubmitHandler}>
+      <Form.Controller>
           <label htmlFor='name'>  Name  </label>
-     
-          <input type='name'  placeholder='enter name' />
+          <input type='text' id='name' placeholder='enter name'  onChange={(e)=>{onChangeHandeler(e)}} />
         </Form.Controller>
+        <Form.Controller>
+          <label htmlFor='age'>  age  </label>
+          <input type='text' id='age' placeholder='enter age' onChange={(e)=>{onChangeHandeler(e)}} />
+        </Form.Controller>
+        <Form.Controller>
+          <label htmlFor='adress'>  adress  </label>
+          <input type='text' id='adress' placeholder='enter adress'onChange={(e)=>{onChangeHandeler(e)}} />
+        </Form.Controller>
+        <Form.Controller>
+          <label htmlFor='phone'>  phone  </label>
+          <input type='text' id='phone' placeholder='enter phone' onChange={(e)=>{onChangeHandeler(e)}}/>
+        </Form.Controller>
+        <Form.Controller>
+          <label htmlFor='type'>  type  </label>
+          <input type='text' id='type' placeholder='enter type' onChange={(e)=>{onChangeHandeler(e)}} />
+        </Form.Controller>
+        <div>
+          <Button type='submit' style={{width:"200px"}}>  save </Button>
+          <Button type='reset' style={{width:"200px"}}>  Reset </Button>
+        </div>
       </Form>
       
 
